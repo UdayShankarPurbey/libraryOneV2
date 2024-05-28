@@ -1,0 +1,35 @@
+<div class="bg-gray-100 p-4 flex justify-center items-center relative h-screen">
+    <!-- Image Background -->
+    <img src="https://source.unsplash.com/random/1200x800" alt="Background Image" class="absolute inset-0 object-cover w-full h-full">
+
+    <!-- Login Form -->
+    <div class="bg-slate-300 p-8 rounded-lg shadow-lg w-96 z-10">
+        <h2 class="text-2xl font-semibold mb-4">Login</h2>
+        <form class="space-y-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="email" class="block font-medium">Email/Phone Number *</label>
+                <input type="text" id="email" formControlName="email" class="form-input mt-1 block w-full h-8 rounded-md" required placeholder="Enter Email or Phone Number ...">
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+                    Email/Phone Number is required.
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block font-medium">Password *</label>
+                    <div class="text-sm">
+                        <a class="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer">Forgot password?</a>
+                    </div>
+                </div>
+                <input type="password" id="password" formControlName="password" class="form-input mt-1 block w-full h-8 rounded-md" required placeholder="Enter Password ...">
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+                    Password is required.
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:bg-gray-400" [disabled]="loginForm.invalid">Login</button>
+            <p class="mt-10 text-center text-sm text-gray-500 cursor-pointer">
+                Not a member?
+                <a class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register Now</a>
+            </p>
+        </form>
+    </div>
+</div>
