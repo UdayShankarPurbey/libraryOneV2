@@ -14,7 +14,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     NzIconModule, 
     NzLayoutModule, 
     NzMenuModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
