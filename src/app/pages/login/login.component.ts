@@ -31,7 +31,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       // Handle login logic here
       console.log(this.loginForm.value);
-      sessionStorage.setItem('login', '123456')
+      sessionStorage.setItem('login', '12346')
       this.router.navigateByUrl('/home');
     
     } else {
