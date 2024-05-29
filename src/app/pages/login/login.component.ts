@@ -32,7 +32,7 @@ export class LoginComponent {
       // Handle login logic here
       console.log(this.loginForm.value);
       sessionStorage.setItem('login', '12346')
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/main');
     
     } else {
       // Mark all fields as touched to trigger validation messages

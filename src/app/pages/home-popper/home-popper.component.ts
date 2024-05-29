@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home-popper',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './home-popper.component.html',
   styleUrl: './home-popper.component.css'
 })
