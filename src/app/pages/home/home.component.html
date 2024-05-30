@@ -1,1 +1,102 @@
-<p>home works!</p>
+<body class="bg-gray-100">
+    <header class="bg-green-800 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center pl-4">
+                <img src="../../../assets/collegeLogo.jpg" alt="Colledge Logo" class="h-10 mr-3 rounded-full">
+                <h1 class="text-xl font-bold">Library One</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-4 pr-7">
+                    <li>
+                        <button class="inline-block px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600" (click)="logout()">
+                            Logout
+                        </button>
+                    </li>
+                </ul>
+                
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container mx-auto">
+        <section class="text-center mb-8">
+            <h2 class="text-2xl font-bold mb-4">Democratizing Education, Learning Beyond Boundaries</h2>
+            <div class="relative p-4">
+                <div class="w-full px-4 py-2 border rounded">
+                    <nz-select class="w-full" nzShowSearch nzAllowClear nzPlaceHolder="Select ..." (nzOpenChange)="searchData()" [(ngModel)]="selectedValue">
+                        <nz-option nzLabel="Basic Education" nzValue="basic_Education"></nz-option>
+                        <nz-option nzLabel="Higher Education" nzValue="higher_Education"></nz-option>
+                        <nz-option nzLabel="Research" nzValue="research"></nz-option>
+                        <nz-option nzLabel="Career Development" nzValue="career_Development"></nz-option>
+                        <nz-option nzLabel="Cultural Archives" nzValue="cultural_Archives"></nz-option>
+                        <nz-option nzLabel="Newspaper Archives" nzValue="newsPapper_Archives"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+        </section>
+        
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 p-8">
+            <div class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-bold mb-2">Basic Education</h3>
+                <ul class="space-y-1">
+                    <li>Subjects</li>
+                    <li>Educational Levels</li>
+                    <li>Resource Types</li>
+                    <li>Content Providers</li>
+                </ul>
+                <a class="block mt-4 text-blue-500 hover:underline" (click)="dataLoader('Basic Education')">Explore More Contents</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-bold mb-2">Higher Education</h3>
+                <ul class="space-y-1">
+                    <li>Subjects</li>
+                    <li>Resource Types</li>
+                    <li>Content Providers</li>
+                    <li>Educational Levels</li>
+                </ul>
+                <a  class="block mt-4 text-blue-500 hover:underline" (click)="dataLoader('Higher Education')">Explore More Contents</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-bold mb-2">Research</h3>
+                <ul class="space-y-1">
+                    <li>Subjects</li>
+                    <li>Content Providers</li>
+                    <li>Resource Types</li>
+                    <li>Journals</li>
+                </ul>
+                <a  class="block mt-4 text-blue-500 hover:underline" (click)="dataLoader('Research')">Explore More Contents</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-bold mb-2">Career Development</h3>
+                <ul class="space-y-1">
+                    <li>Examinations</li>
+                    <li>Resource Types</li>
+                </ul>
+                <a  class="block mt-4 text-blue-500 hover:underline" (click)="dataLoader('Career Development')">Explore More Contents</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-bold mb-2">Cultural Archives</h3>
+                <ul class="space-y-1">
+                    <li>Content Providers</li>
+                    <li>Resource Types</li>
+                </ul>
+                <a  class="block mt-4 text-blue-500 hover:underline" (click)="dataLoader('Cultural Archives')">Explore More Contents</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-bold mb-2">Newspaper Archives</h3>
+                <ul class="space-y-1">
+                    <li>Content Providers</li>
+                    <li>Newspapers</li>
+                </ul>
+                <a  class="block mt-4 text-blue-500 hover:underline" (click)="dataLoader('Newspaper Archives')">Explore More Contents</a>
+            </div>
+        </section>
+    </main>
+  
+    <footer class="bg-gray-800 text-white py-8 mt-8">
+        <div class="container mx-auto text-center">
+            <p>Democratizing Education, Learning Beyond Boundaries</p>
+            <p>© 2024 Uday Shankar Purbey </p>
+        </div>
+    </footer>
+</body>

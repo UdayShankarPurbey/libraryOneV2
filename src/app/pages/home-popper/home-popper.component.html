@@ -1,46 +1,46 @@
 <main class="bg-green-100 flex items-center justify-center h-full w-full p-6 ">
     <div class="text-center mr-8 w-1/4">
         <h1 class="text-4xl font-bold mb-8">CHOOSE YOUR PREFERENCE</h1>
-        <img src="../../../assets/home-Popper/si.jpg" alt="Image" class="mb-10 mx-auto rounded-2xl">
+        <img src="../../../assets/collegeLogo.jpg" alt="Image" class="mb-10 mx-auto rounded-2xl">
     </div>
     <div class="grid grid-cols-3 gap-6 w-3/4">
         <!-- Basic Education -->
-        <div class="group cursor-pointer" routerLink="/home/basic_Education" >
+        <div class="group cursor-pointer" (click)="clickedData('basic_Education')">
             <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full overflow-hidden border-4 border-transparent hover-grow transition-all duration-300 mx-auto">
                 <img src="../../../assets/home-Popper/se.jpg" alt="Basic Education" class="w-full h-full object-cover">
             </div>
             <p class="mt-2 text-lg">Basic Education</p>
         </div>
         <!-- Higher Education -->
-        <div class="group cursor-pointer" routerLink="/home/higher_Education">
+        <div class="group cursor-pointer" (click)="clickedData('higher_Education')" >
             <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full overflow-hidden border-4 border-transparent hover-grow transition-all duration-300 mx-auto">
                 <img src="../../../assets/home-Popper/he.jpg" alt="Higher Education" class="w-full h-full object-cover">
             </div>
             <p class="mt-2 text-lg">Higher Education</p>
         </div>
         <!-- Research -->
-        <div class="group cursor-pointer" routerLink="/home/research">
+        <div class="group cursor-pointer" (click)="clickedData('research')" >
             <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full overflow-hidden border-4 border-transparent hover-grow transition-all duration-300 mx-auto">
                 <img src="../../../assets/home-Popper/re.jpg" alt="Research" class="w-full h-full object-cover">
             </div>
             <p class="mt-2 text-lg">Research</p>
         </div>
         <!-- Career Development -->
-        <div class="group cursor-pointer" routerLink="/home/career_Development">
+        <div class="group cursor-pointer" (click)="clickedData('career_Development')" >
             <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full overflow-hidden border-4 border-transparent hover-grow transition-all duration-300 mx-auto">
                 <img src="../../../assets/home-Popper/cd.jpg" alt="Career Development" class="w-full h-full object-cover">
             </div>
             <p class="mt-2 text-lg">Career Development</p>
         </div>
         <!-- Cultural Archives -->
-        <div class="group cursor-pointer" routerLink="/home/cultural_Archives">
+        <div class="group cursor-pointer" (click)="clickedData('cultural_Archives')" >
             <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full overflow-hidden border-4 border-transparent hover-grow transition-all duration-300 mx-auto">
                 <img src="../../../assets/home-Popper/ch.jpg" alt="Cultural Archives" class="w-full h-full object-cover">
             </div>
             <p class="mt-2 text-lg">Cultural Archives</p>
         </div>
         <!-- Newspaper Archives -->
-        <div class="group cursor-pointer" routerLink="/home/newsPapper_Archives">
+        <div class="group cursor-pointer" (click)="clickedData('newsPapper_Archives')" >
             <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full overflow-hidden border-4 border-transparent hover-grow transition-all duration-300 mx-auto">
                 <img src="../../../assets/home-Popper/nw.jpg" alt="Newspaper Archives" class="w-full h-full object-cover">
             </div>

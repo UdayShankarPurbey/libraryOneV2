@@ -1,0 +1,9 @@
+body {
+    min-height: 72.5vh; /* Ensure the body covers the entire viewport height */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Allow the main content to grow to fill the available space */
+}
