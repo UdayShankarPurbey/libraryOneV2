@@ -1,1 +1,65 @@
-<p>cultural-archives works!</p>
+<hr/>
+<div class="flex justify-center items-center relative p-8">
+    <button (click)="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full">‹</button>
+    <div class="carousel flex overflow-hidden space-x-4 w-full">
+      <div class="card bg-white p-4 shadow-md hover:shadow-xl transition-shadow duration-300" *ngFor="let card of visibleCards">
+        <img [src]="card.image" alt="{{ card.title }}" class="h-40 w-full object-cover">
+        <h3 class="mt-4 text-lg font-semibold">{{ card.title }}</h3>
+        <p>{{ card.description }}</p>
+      </div>
+    </div>
+    <button (click)="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full">›</button>
+  </div>
+  <p></p>
+<hr/>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="flex space-x-8">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-72">
+        <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-list mr-2"></i> Subjects</h3>
+        <ul class="mb-4">
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Physics</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Chemistry</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Biology</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Mathematics</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Geography</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">History</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">General Science</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Computer Science</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">English</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Political Science</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Commerce</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Economics</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Vocational Studies</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">The Arts</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Regional Languages</li>
+        </ul>
+        <a href="#" class="text-green-600 font-semibold flex items-center"><i class="fas fa-layer-group mr-2"></i> View More</a>
+      </div>
+  
+      <div class="bg-white p-6 rounded-lg shadow-lg w-72">
+        <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-users mr-2"></i> Educational Levels</h3>
+        <ul class="mb-4">
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class I</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class II</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class III</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class IV</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class V</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class VI</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class VII</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class VIII</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class IX</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class X</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class XI</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">Class XII</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">JEE Main Preparatory</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">JEE Advanced Preparatory</li>
+          <li class="mb-2 hover:text-blue-600 cursor-pointer">NEET (UG) Preparatory</li>
+        </ul>
+        <a href="#" class="text-green-600 font-semibold flex items-center"><i class="fas fa-layer-group mr-2"></i> View More</a>
+      </div>
+    </div>
+  
+  </body>
+  
