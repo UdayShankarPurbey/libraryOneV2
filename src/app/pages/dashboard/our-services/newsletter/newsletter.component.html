@@ -1,0 +1,38 @@
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4 text-center">Newsletters</h1>
+    
+    <p class="mb-4">
+      Stay updated with the latest news, events, and updates from the Gandhi Institute for Education and Technology (GIET) Library by subscribing to our newsletters. Our newsletters provide valuable information about new arrivals, upcoming workshops, library services, and much more.
+    </p>
+  
+    <h2 class="text-2xl font-semibold mt-6 mb-2">Subscribe to Our Newsletter</h2>
+    <p class="mb-4">
+      To receive our monthly newsletter, please enter your email address below and click the subscribe button.
+    </p>
+  
+    <form class="mb-4" [formGroup]="newsletterForm" >
+      <div class="mb-4">
+        <label for="email" class="block text-lg font-medium text-gray-700">Email Address</label>
+        <input  type="text" formControlName="email" class="mt-1 p-2 border border-gray-300 rounded-md shadow-sm w-full" placeholder="your-email@example.com" required>
+      </div>
+      <button class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700" (click)="getData()" >Subscribe</button>
+    </form>
+  
+    <h2 class="text-2xl font-semibold mt-6 mb-2">Previous Newsletters</h2>
+    <p class="mb-4">
+      Below you can find links to our previous newsletters. Click on a date to view the corresponding newsletter.
+    </p>
+  
+    <ul class="list-disc pl-8">
+      <li><a href="assets/newsletters/newsletter-2024-05.pdf" class="text-blue-600 hover:underline">May 2024</a></li>
+      <li><a href="assets/newsletters/newsletter-2024-04.pdf" class="text-blue-600 hover:underline">April 2024</a></li>
+      <li><a href="assets/newsletters/newsletter-2024-03.pdf" class="text-blue-600 hover:underline">March 2024</a></li>
+      <!-- Add more newsletter links as needed -->
+    </ul>
+  
+    <p class="mt-6">
+      For more information or to unsubscribe from our newsletter, please contact the library staff at info&#64;giet.edu.
+    </p>
+  </div>
+
+  
