@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
@@ -10,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     CommonModule,
     NzIconModule,
     ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './higher-education.component.html',
   styleUrl: './higher-education.component.css'
@@ -126,7 +128,8 @@ export class HigherEducationComponent implements OnInit , OnDestroy{
   form : FormGroup;
 
   constructor(
-    private fb : FormBuilder
+    private fb : FormBuilder,
+    private router : Router
   ) {
     this.form = this.fb.group({
       language: [''],
@@ -182,4 +185,121 @@ export class HigherEducationComponent implements OnInit , OnDestroy{
     console.log(this.form.value);
   }
 
+  tableData = [
+    {
+      "topics": "subjects",
+      "subTopics": [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Mathematics",
+        "Geography",
+        "History",
+        "General Science",
+        "Computer Science",
+        "English",
+        "Political Science",
+        "Commerce",
+        "Economics",
+        "Vocational Studies",
+        "The Arts",
+        "Regional Languages",
+        "Psychology",
+        "Sociology",
+        "Anthropology",
+        "Philosophy",
+        "Environmental Science",
+        "Health Education",
+        "Physical Education",
+        "Music",
+        "Dance",
+        "Drama",
+        "Film Studies",
+        "Journalism",
+        "Criminal Justice",
+        "Law",
+        "Business Administration",
+        "Marketing",
+        "Finance",
+        "Human Resources",
+        "Information Technology",
+        "Software Engineering",
+        "Web Development",
+        "Graphic Design",
+        "Fine Arts",
+        "Fashion Design",
+        "Culinary Arts",
+        "Hospitality Management",
+        "Tourism Management"
+      ]
+    },
+    {
+      "topics": "hobbies",
+      "subTopics": [
+        "Photography",
+        "Painting",
+        "Drawing",
+        "Cooking",
+        "Gardening",
+        "Knitting",
+        "Woodworking",
+        "Sculpting",
+        "Playing an Instrument",
+        "Dancing",
+        "Reading",
+        "Writing",
+        "Fishing",
+        "Hiking",
+        "Cycling"
+      ]
+    },
+    {
+      "topics": "languages",
+      "subTopics": [
+        "English",
+        "Spanish",
+        "French",
+        "Mandarin",
+        "German"
+      ]
+    },
+    {
+      "topics": "sports",
+      "subTopics": [
+        "Football",
+        "Basketball",
+        "Tennis",
+        "Cricket",
+        "Swimming"
+      ]
+    },
+    {
+      "topics": "music",
+      "subTopics": [
+        "Piano",
+        "Guitar",
+        "Violin",
+        "Drums",
+        "Singing"
+      ]
+    },
+    {
+      "topics": "programming",
+      "subTopics": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "C++",
+        "Ruby"
+      ]
+    }
+  ]
+  
+
+  getClickedCarauselData(data : any) {
+    console.log(data);
+    this.router.navigateByUrl('/home/books/'+data?.title)
+    
+  }
+  
 }
