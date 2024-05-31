@@ -1,1 +1,219 @@
-<p>research works!</p>
+  <!-- Banner & Search Section -->
+  <div class="relative bg-cover bg-center h-screen" style="background-image: url('../../../../assets/dashboardCommon/collegeBanner.jpg')">
+    <div class="absolute inset-0 bg-blue-500 opacity-15 hover:opacity-55"></div>
+    <div class="relative container mx-auto p-6">
+      <div class="flex justify-between w-full items-center mb-4">
+        <div class="flex flex-col items-center">
+          <p class="text-white">Developed By</p>
+          <img src="../../../../assets/dashboardCommon/udayShankar.jpg" alt="Developed By" class="h-16 rounded-full">
+        </div>
+        <div class="flex flex-col items-center">
+          <p class="text-white">Supported By</p>
+          <img src="../../../../assets/dashboardCommon/spponseredBy.jpg" alt="Sponsored By" class="h-16 rounded-full">
+        </div>
+      </div>
+      <div class="text-center mt-10">
+        <h1 class="text-4xl text-white font-bold">One Library All of India</h1>
+        <p class="text-white mt-4">Democratizing Education, Learning Beyond Boundaries</p>
+        <div class="mt-6 flex justify-center">
+          <form  [formGroup]="form">
+            <select class="p-2 rounded-l-md" formControlName="language" 
+            >
+            
+                <option value="">Select ... </option>
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="od">Odia</option>
+      
+              </select>
+              <input type="text" placeholder="Enter your search key..." class="p-2 w-64" formControlName="searchData" >
+              <button class="bg-green-500 text-white p-2 rounded-r-md" (click)="searchData()">Search</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- box section -->
+  <div class="bg-blue-100 flex items-center justify-center min-h-screen">
+
+    <div class="grid grid-cols-2  ">
+      <div class="bg-white m-4 p-4 rounded-lg shadow-lg ">
+        <h3 class="text-xl font-semibold mb-4 flex items-center justify-center bg-cyan-200">
+            <i class="fas fa-list mr-2"></i> Subjects
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+            <div>
+                <ul>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Physics</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Chemistry</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Biology</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Mathematics</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Geography</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">History</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">General Science</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Computer Science</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">English</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Political Science</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Commerce</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Economics</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Vocational Studies</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">The Arts</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Regional Languages</li>
+                </ul>
+            </div>
+        </div>
+        <a class="text-white font-thin text-2xl flex items-center justify-center bg-cyan-200 ">
+            <i class="fas fa-layer-group mr-2"></i> View More
+        </a>
+    </div>
+    
+
+      <!-- New card Added -->
+      <div class="bg-white m-4 p-4 rounded-lg shadow-lg ">
+        <h3 class="text-xl font-semibold mb-4 flex items-center justify-center bg-cyan-200">
+            <i class="fas fa-list mr-2"></i> Subjects
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+            <div>
+                <ul>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Physics</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Chemistry</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Biology</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Mathematics</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Geography</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">History</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">General Science</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Computer Science</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">English</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Political Science</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Commerce</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Economics</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Vocational Studies</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">The Arts</li>
+                    <li class="mb-2 hover:text-blue-600 cursor-pointer underline-hover">Regional Languages</li>
+                </ul>
+            </div>
+        </div>
+        <a class="text-white font-thin text-2xl flex items-center justify-center bg-cyan-200 ">
+            <i class="fas fa-layer-group mr-2"></i> View More
+        </a>
+    </div>
+
+      
+      
+    </div>
+  
+  </div>
+
+  <!-- Carausel Section -->
+<div class="flex justify-center items-center relative p-8" (mouseenter)="pauseAutoSlide()" (mouseleave)="startAutoSlide()">
+    <button (click)="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full">‹</button>
+    <div class="carousel flex overflow-hidden space-x-4 w-full">
+      <div class="card bg-white p-4 shadow-md hover:shadow-xl transition-shadow duration-300" *ngFor="let card of visibleCards">
+        <img [src]="card.image" alt="{{ card.title }}" class="h-40 w-full object-cover">
+        <h3 class="mt-4 text-lg font-semibold">{{ card.title }}</h3>
+        <p>{{ card.description }}</p>
+      </div>
+    </div>
+    <button (click)="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full">›</button>
+  </div>
+
+<!-- Colledge Info Section -->
+<div >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="bg-white shadow-lg rounded-lg p-8">
+        <div class="flex items-center justify-between">
+          <img src="../../../../assets/collegeLogo.jpg" alt="Colledge Logo" class="h-16">
+          <div class="text-right p-4">
+            <h1 class="text-2xl font-bold text-gray-800">Gandhi Institute For Education and Technology(GIET)</h1>
+            <p class="mt-2 text-gray-600" style="text-align: justify;">
+              Welcome to the GIET Central Library, your gateway to a world of knowledge and inspiration. With over 34,000 books, 559 educational CDs/DVDs, and access to 165 journals, we offer a multidisciplinary platform for learning and research. Our state-of-the-art facilities include air-conditioned reading rooms and 24*7 Wi-Fi access. Join our vibrant community of learners and thinkers, where ideas flourish, and innovation thrives. Explore, discover, and grow with us at the forefront of academic excellence. Welcome to your home for endless possibilities.
+          </p>
+          </div>
+          <img src="../../../../assets/dashboardCommon/library.jpg" alt="libraryLook" class="h-32 rounded-2xl ">
+
+        </div>
+        <div class="text-center mt-4">
+          <p>
+            Learn more about other 
+            <a class="text-blue-600 underline">
+              GIET
+            </a>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section-->
+  <div class="bg-green-200">
+    <div class="grid grid-cols-4 gap-4 m-8 p-4">
+    <div>
+      <h2 class="text-lg font-bold text-gray-800 hover:text-blue-500 underline-hover">About</h2>
+      <ul class="mt-2 space-y-2 text-gray-600">
+        <li><a href="#" class="underline-hover">About </a></li>
+        <li><a href="#" class="underline-hover">Disclaimer</a></li>
+        <li><a href="#" class="underline-hover">Sponsor</a></li>
+        <li><a href="#" class="underline-hover">Privacy Policy</a></li>
+        <li><a href="#" class="underline-hover">Terms and Conditions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-lg font-bold text-gray-800  hover:text-blue-500 underline-hover">Guidelines</h2>
+      <ul class="mt-2 space-y-2 text-gray-600">
+        <li><a href="#" class="underline-hover">Copyright Guide for Library</a></li>
+        <li><a href="#" class="underline-hover">Institutional Registration</a></li>
+        <li><a href="#" class="underline-hover">Sitemap</a></li>
+        <li><a href="#" class="underline-hover">Branding</a></li>
+        <li><a href="#" class="underline-hover">Code of Conduct</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-lg font-bold text-gray-800  hover:text-blue-500 underline-hover">Our Services</h2>
+      <ul class="mt-2 space-y-2 text-gray-600">
+        <li><a href="#" class="underline-hover">Club & Commitee</a></li>
+        <li><a href="#" class="underline-hover">Digital Library</a></li>
+        <li><a href="#" class="underline-hover">Hosting Service</a></li>
+        <li><a href="#" class="underline-hover">Magazines</a></li>
+        <li><a href="#" class="underline-hover">News Letter</a></li>
+
+      </ul>
+    </div>
+    <div >
+      <h2 class="text-lg font-bold text-gray-800  hover:text-blue-500 underline-hover">Contact Us</h2>
+      <ul class="mt-2 space-y-2 text-gray-600">
+        <li><a href="#" class="underline-hover">Contact</a></li>
+      </ul>
+      <div class="flex justify-center space-x-4 mt-4">
+        <a href="#"><i nz-icon nzType="facebook" nzTheme="outline" class="h-6"></i></a>
+        <a href="#"><i nz-icon nzType="twitter" nzTheme="outline" class="h-6"></i></a>
+        <a href="#"><i nz-icon nzType="appstore" nzTheme="outline" class="h-6"></i></a> 
+        <a href="#"><i nz-icon nzType="youtube" nzTheme="outline" class="h-6"></i></a>
+        <a href="#"><i nz-icon nzType="linkedin" nzTheme="outline" class="h-6"></i></a>
+        <a href="#"><i nz-icon nzType="instagram" nzTheme="outline" class="h-6"></i></a>
+      </div>
+    </div>
+  </div>
+ 
+ </div>
+
+  

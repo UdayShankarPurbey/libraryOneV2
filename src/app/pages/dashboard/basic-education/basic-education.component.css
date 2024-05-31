@@ -1,0 +1,19 @@
+/* carausel */
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    width: 100%;
+  }
+  
+  .card {
+    box-sizing: border-box;
+  }
+  /* table card  */
+  .underline-hover:hover {
+    text-decoration: underline;
+}
+
+/* Adjust height to fit content */
+.bg-white {
+    height: fit-content;
+}
