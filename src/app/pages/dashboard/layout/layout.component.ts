@@ -20,4 +20,8 @@ export class LayoutComponent {
     sessionStorage.removeItem('login')
     this.router.navigateByUrl('/');
   }
+
+  libraryData() {
+    this.router.navigateByUrl('/main');
+  }
 }

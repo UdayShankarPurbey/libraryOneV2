@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-basic-education',
   standalone: true,
-  imports: [],
+  imports: [
+  ],
   templateUrl: './basic-education.component.html',
   styleUrl: './basic-education.component.css'
 })

@@ -1,9 +1,9 @@
-<body class="bg-gray-100">
-    <header class="bg-green-800 text-white py-4">
+<div class=" bg-blue-100  mainBody ">
+    <header class="bg-green-800 text-white py-4 cursor-pointer">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center pl-4">
+            <div class="flex items-center pl-4" (click)="libraryData()">
                 <img src="../../../assets/collegeLogo.jpg" alt="Colledge Logo" class="h-10 mr-3 rounded-full">
-                <h1 class="text-xl font-bold">Library One</h1>
+                <h1 class="text-xl font-bold hover:text-blue-500">Library One</h1>
             </div>
             <nav>
                 <ul class="flex space-x-4 pr-7">
@@ -18,7 +18,7 @@
         </div>
     </header>
     
-    <main class="container mx-auto ">
+    <main class="container mx-auto">
         <router-outlet></router-outlet>
         
     </main>
@@ -29,4 +29,4 @@
             <p>© 2024 Uday Shankar Purbey </p>
         </div>
     </footer>
-</body>
+</div>

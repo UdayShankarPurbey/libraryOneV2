@@ -1,16 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+
+
 
 @Component({
   selector: 'app-cultural-archives',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    NzIconModule,
+    ReactiveFormsModule,
+    
   ],
   templateUrl: './cultural-archives.component.html',
   styleUrl: './cultural-archives.component.css'
 })
-export class CulturalArchivesComponent {
+export class CulturalArchivesComponent implements OnInit , OnDestroy{
   cards =  [
     {
       "image": "https://source.unsplash.com/random/?nations",
@@ -117,9 +124,44 @@ export class CulturalArchivesComponent {
   visibleCards : any  = [];
   currentIndex = 0;
   numberOfVisibleCards = 5;
+  interval: any;
+  autoSlideInterval: number = 5000; // Adjust the interval time as needed
+  form : FormGroup;
+
+  constructor(
+    private fb : FormBuilder
+  ) {
+    this.form = this.fb.group({
+      language: [''],
+      searchData : ['']
+    });
+    
+  }
 
   ngOnInit() {
     this.updateVisibleCards();
+    this.form.valueChanges.subscribe(data => {
+      //todo : implement changes logic here
+      console.log(data);
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.stopAutoSlide();
+  }
+
+  startAutoSlide(): void {
+    this.interval = setInterval(() => {
+      this.nextSlide();
+    }, this.autoSlideInterval);
+  }
+
+  pauseAutoSlide(): void {
+    clearInterval(this.interval);
+  }
+
+  stopAutoSlide(): void {
+    clearInterval(this.interval);
   }
 
   updateVisibleCards() {
@@ -137,6 +179,10 @@ export class CulturalArchivesComponent {
   prevSlide() {
     this.currentIndex = (this.currentIndex - 1 + this.cards.length) % this.cards.length;
     this.updateVisibleCards();
+  }
+
+  searchData() {
+    console.log(this.form.value);
   }
 
 }

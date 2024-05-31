@@ -9,7 +9,15 @@ import {
   SearchOutline, 
   RiseOutline, 
   HistoryOutline,
-  FileTextOutline
+  FileTextOutline,
+  InfoCircleOutline,
+  FacebookOutline, 
+  TwitterOutline, 
+  AppstoreOutline, 
+  YoutubeOutline, 
+  LinkedinOutline,
+  InstagramOutline,
+
 } from '@ant-design/icons-angular/icons';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -24,7 +32,17 @@ const icons = [
   SearchOutline,
   RiseOutline,
   HistoryOutline,
-  FileTextOutline
+  FileTextOutline,
+  InfoCircleOutline,
+  FacebookOutline, 
+  TwitterOutline,
+  AppstoreOutline, 
+  YoutubeOutline, 
+  LinkedinOutline, 
+  InstagramOutline,
+
+  
+  
 ];
 
 export function provideNzIcons(): EnvironmentProviders {
