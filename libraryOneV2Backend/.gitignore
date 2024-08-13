@@ -1,0 +1,2 @@
+/node_modules
+# /.env  # must un comment in production.
