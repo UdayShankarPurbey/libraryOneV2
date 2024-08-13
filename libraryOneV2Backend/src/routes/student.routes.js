@@ -9,7 +9,7 @@ import {
     updateAccountDetails, 
     updateUserAvatar, 
     updateUserCoverImage 
-} from "../controllers/user.controllers.js";
+} from "../controllers/student.controllers.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
 const router = Router()

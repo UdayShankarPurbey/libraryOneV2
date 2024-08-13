@@ -18,7 +18,7 @@ app.use(morgan('dev'))
 
 //routes 
 
-import userRouter from './routes/user.routes.js'
+import userRouter from './routes/student.routes.js'
 
 
 //routes declaration
