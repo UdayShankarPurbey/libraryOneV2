@@ -4,6 +4,12 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Management } from "../models/management.models.js";
 import { managementType } from "../utils/typeEnum.js";
 
+const  options = {
+  httpOnly : true,
+  secure : true
+}
+
+
 const addAdmin = asyncHandler(async (req, res) => {
   const { name, fatherName, motherName, gender, dateOfBirth, email, phone, address, password, imageUrl, role, productKey } = req.body;
 
@@ -37,7 +43,7 @@ const addAdmin = asyncHandler(async (req, res) => {
 
   // Check if the user already exists
   const existedUser = await Management.findOne({
-    $or: [{ email }, { phone } , { regNo }],
+    $or: [{ email }, { phone }],
   });
 
   if (existedUser) {
@@ -92,7 +98,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
   }
 
   if(admin.role !== 'admin') {
-    throw new ApiError(403, "Unauthorized Access")
+    throw new ApiError(403, "Unauthorized Access ! Only For Admin")
   }
 
   const accessToken = await admin.generateAccessToken()
@@ -104,11 +110,6 @@ const loginAdmin = asyncHandler(async (req, res) => {
   admin.accessToken = accessToken;
 
   const loggedInAdmin = await Management.findById(admin._id).select(" -password")
-  
-  const options = {
-    httpOnly : true,
-    secure : true
-  }
 
   return res
   .status(200)
@@ -124,10 +125,6 @@ const loginAdmin = asyncHandler(async (req, res) => {
 
 const logoutAdmin = asyncHandler(async (req, res) => {
   req.admin = null
-  const  options = {
-    httpOnly : true,
-    secure : true
-  }
 
   return res
   .status(200)
@@ -185,15 +182,41 @@ const updateAdmin = asyncHandler(async (req, res) => {
 
 });
 
-const updateUserRole = asyncHandler(async (req , res) => {
+const getAdmin = asyncHandler(async (req, res) => {
+  const admin = await Management.findById(req?.admin?._id).select('-password');
+  
+  if(!admin) {
+    throw new ApiError(404, "Admin not found");
+  }
+  
+  return res.status(200).json(
+    new ApiResponse(200, admin, "Admin Data Fetched Successfully")
+  );
+})
+
+const deleteAdmin = asyncHandler(async (req, res) => {
+  const admin = await Management.findByIdAndDelete(req?.admin?._id);
+  
+  if(!admin) {
+    throw new ApiError(404, "Admin not found");
+  }
+
+  res.admin = null;
+  
+  return res
+  .status(200)
+  .clearCookie("accessTokenAdmin", options)
+  .json(
+    new ApiResponse(200, {}, "Admin Data Deleted Successfully")
+  );
 });
 
 const addInManagement = asyncHandler(async (req, res) => {
-  const { name, fatherName, motherName, gender, dateOfBirth, email, phone, address, password, role } = req.body;
+  const { name, fatherName, motherName, imageUrl, gender, dateOfBirth, email, phone, address, password, role } = req.body;
 
   // Check for missing fields
   if (
-    [name, fatherName, motherName, gender, dateOfBirth, email, phone, address, password, role].some((field) => !field || field.trim() === "")
+    [name, fatherName, motherName, imageUrl, gender, dateOfBirth, email, phone, address, password, role].some((field) => !field || field.trim() === "")
   ) {
     throw new ApiError(400, "Please fill all the fields");
   }
@@ -203,12 +226,16 @@ const addInManagement = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Invalid management role");
   }
 
+  if(role == "admin") {
+    throw new ApiError(400, "Invalid management role");
+  }
+
   // Generate a new regNo
   const regNo = await Management.generateRegNo();
 
   // Check if the user already exists
   const existedUser = await Management.findOne({
-    $or: [{ email }, { phone }],
+    $or: [{ email }, { phone } , { regNo }],
   });
 
   if (existedUser) {
@@ -220,6 +247,7 @@ const addInManagement = asyncHandler(async (req, res) => {
     name,
     fatherName,
     motherName,
+    imageUrl,
     gender,
     dateOfBirth,
     email,
@@ -231,7 +259,7 @@ const addInManagement = asyncHandler(async (req, res) => {
   });
 
   // Fetch the created management entry excluding sensitive information
-  const createdManagement = await Management.findById(management._id).select('-password -refreshToken');
+  const createdManagement = await Management.findById(management._id).select('-password');
 
   if (!createdManagement) {
     throw new ApiError(500, "Something went wrong, unable to add to Management Data! Try again later.");
@@ -242,14 +270,215 @@ const addInManagement = asyncHandler(async (req, res) => {
   );
 });
 
+const updateUserRole = asyncHandler(async (req , res) => {
+  const { userId } = req.params;
+  const { newRole } = req.body;
+
+  if(!userId) {
+    throw new ApiError(400, "Please provide userId");
+  }
+
+  if(!newRole) {
+    throw new ApiError(400, "Please provide new role");
+  }
+
+  if (!managementType.includes(newRole)) {
+    throw new ApiError(400, "Invalid management role");
+  }
+
+  if(newRole == 'admin') {
+    throw new ApiError(400, "Invalid management role");
+  }
+
+  const userExists = await Management.findById(userId);
+  if(!userExists) {
+    throw new ApiError(404, "User not found");
+  }
+
+  if(userExists.role === newRole) {
+    throw new ApiError(400, "User already has this role");
+  }
+
+  const user = await Management.findByIdAndUpdate(
+    userId,
+    {
+      $set : {
+        role : newRole
+      }
+    },
+    { new : true }
+  ).select("-password")
+
+  return res
+  .status(200)
+  .json(
+      new ApiResponse(200 , user , "User Role Updated Successfully")
+  )
+});
+
+const getManagement = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+
+  if(!userId) {
+    throw new ApiError(400, "Please provide userId");
+  }
+  
+  const user = await Management.findById(userId).select('-password');
+  
+  if(!user) {
+    throw new ApiError(404, "Management not found");
+  }
+
+  return res
+  .status(200)
+  .json(
+      new ApiResponse(200, user, "Management Data Fetched Successfully")
+  )
+});
+
+const deleteManagement = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  
+  if(!userId) {
+    throw new ApiError(400, "Please provide userId");
+  }
+
+  const user = await Management.findByIdAndDelete(userId);
+  
+  if(!user) {
+    throw new ApiError(404, "User not found");
+  }
+  
+  return res
+  .status(200)
+  .json(
+      new ApiResponse(200, {}, "Management Data Deleted Successfully")
+  )
+});
+
+const updateManagement = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  const { name, fatherName, motherName, imageUrl, gender, dateOfBirth, email, phone, address, password } = req.body;
+
+  if( !(name || fatherName || motherName || gender || dateOfBirth || email || phone || address || password || imageUrl)) {
+    throw new ApiError(400, "Please fill the field You want to Update");
+  }
+
+  const isValidUserId = await Management.findById(userId);
+  
+  if(!isValidUserId) {
+    throw new ApiError(404, "User not found");
+  }
+
+  if(email || phone) {
+    const existedUser = await Management.findOne({
+      $or : [ { email } , { phone }]
+    })
+    // IMPROVE IT : OTP for changing Phone and email.
+
+    if(existedUser) {
+      throw new ApiError(409, "Emil or Phone Number is Already Registered  ! Try with another Email or Phone Number");
+    }
+  }
+
+  const user = await Management.findByIdAndUpdate(
+    userId,
+    {
+      $set : {
+        name,
+        fatherName,
+        motherName,
+        imageUrl,
+        gender,
+        dateOfBirth,
+        email,
+        phone,
+        address,
+        password
+      }
+    },
+    { new : true }
+  ).select('-password')
+  
+  return res
+  .status(200)
+  .json(
+      new ApiResponse(200 , user , "Management Data Updated Successfully")
+  )
+});
+
+const loginLibrarian = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  if(!(email && password)) {
+    throw new ApiError(400, "Please enter email and Password")
+  }
+
+  const librarian = await Management.findOne({email})
+
+  if(!librarian ) {
+    throw new ApiError(404, "Librarian does not exist")
+  }
+
+  const isPasswordValid = await librarian.isPasswordCorrect(password)
+
+  if(!isPasswordValid) {
+    throw new ApiError(401, "Invalid Librarian Credentials")
+  }
+
+  if(librarian.role !== 'librarian') {
+    throw new ApiError(403, "Unauthorized Access !Only For Librarian")
+  }
+
+  const accessToken = await librarian.generateAccessToken()
+
+  if(!accessToken) {
+    throw new ApiError(500, "Something went wrong, unable to generate access token! Try again later.")
+  }
+
+  librarian.accessToken = accessToken;
+
+  const loggedInLibrarian = await Management.findById(librarian._id).select(" -password")
+
+  return res
+  .status(200)
+  .cookie("accessTokenLibrarian", accessToken ,options)
+  .json(
+      new ApiResponse(200 , {
+          user : loggedInLibrarian ,
+          accessToken,
+        } , "Librarian Logged In Successfully")
+  )
+});
+
+const logoutLibrarian = asyncHandler(async (req, res) => {
+  req.librarian = null
+
+  return res
+  .status(200)
+  .clearCookie("accessTokenLibrarian", options)
+  .json(
+      new ApiResponse(200 ,{}, "Librarian Logged Out Successfully")
+  )
+});
+
 export { 
   // For admin role only
   addAdmin,  
   loginAdmin,
   logoutAdmin,
   updateAdmin,
-  updateUserRole,
+  getAdmin,
+  deleteAdmin,
 
   // For all roles
-  addInManagement 
+  addInManagement,
+  getManagement,
+  deleteManagement,
+  updateManagement,
+  updateUserRole,
+
+  // For librarian role only
+  loginLibrarian,
+  logoutLibrarian,
 };

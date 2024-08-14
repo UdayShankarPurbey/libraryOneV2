@@ -93,9 +93,11 @@ const managementSchema = new mongoose.Schema(
 
 // Static method to generate regNo
 managementSchema.statics.generateRegNo = async function () {
-  const count = await this.countDocuments();
+  let count = await this.countDocuments();
+  count = count > 20 ? count : count *10;
+  const random= Math.floor(Math.random()*count);
   // Generate regNo based on the count. Adjust the format as needed.
-  return `GIET${count + 1}`; // Example format: "REG1", "REG2", etc.
+  return `GIET${count + 1}${random}`; 
 };
 
 managementSchema.pre('save',async function (next) {
