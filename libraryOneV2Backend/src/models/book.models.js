@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { departmentTagType } from "../utils/typeEnum.js";
 
 const bookSchema = new mongoose.Schema(
     {
-      name : {
+      title : {
         type : String,
         required : true,
       },
@@ -22,7 +23,24 @@ const bookSchema = new mongoose.Schema(
       },
       genre : {
         type : String,
-      }
+      },
+      tag : [
+        {
+          type : String,
+          enum: departmentTagType,
+        }
+      ],
+      price : {
+        type : Number,
+        required : true,
+      },
+      description : {
+        type : String,
+      },
+      bookCoverImage : {
+        type : String,
+      },
+
     },
     {
         timestamps: true

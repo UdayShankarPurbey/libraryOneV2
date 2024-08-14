@@ -21,14 +21,14 @@ app.use(morgan('dev'))
 import managementRouter from './routes/management.routes.js'
 import studentRouter from './routes/student.routes.js'
 import bookRouter from './routes/book.routes.js'
-import materialRouter from './routes/journal_Article_Other.routes.js'
+import materialRouter from './routes/material.routes.js'
 
 
 
 //routes declaration
 app.use("/api/v1/management", managementRouter)
-// app.use("/api/v1/student", studentRouter)
-// app.use("/api/v1/book", bookRouter)
-// app.use("/api/v1/material", managementRouter)
+app.use("/api/v1/student", studentRouter)
+app.use("/api/v1/book", bookRouter)
+app.use("/api/v1/material", materialRouter)
 
 export {app}

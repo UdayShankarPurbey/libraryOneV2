@@ -18,7 +18,6 @@ const studentSchema = new mongoose.Schema(
        },
        localGuardian : {
         type : String,
-        required : true,
        },
        imageUrl : {
         type : String,
@@ -63,6 +62,10 @@ const studentSchema = new mongoose.Schema(
         type : String,
         required : true,
        },
+       session : {
+        type : String,
+        required : true,
+       },
        batch : {
         type : String,
         required : true,
@@ -95,9 +98,6 @@ const studentSchema = new mongoose.Schema(
             },
         }
        ],
-       refreshToken : {
-        type : String,
-       }
     },
     {
         timestamps: true
@@ -121,25 +121,13 @@ studentSchema.methods.generateAccessToken = function () {
         {
             _id : this._id,
         },
-        process.env.ACCESS_TOKEN_SECRET,
+        process.env.STUDENT_ACCESS_TOKEN_SECRET,
         {
-            expiresIn : process.env.ACCESS_TOKEN_EXPIRY,
+            expiresIn : process.env.STUDENT_ACCESS_TOKEN_EXPIRY,
         }
         
     )
 }
 
-studentSchema.methods.generateRefreshToken =  function () {
-    return  jwt.sign(
-        {
-            _id : this._id,
-        },
-        process.env.REFRESH_TOKEN_SECRET,
-        {
-            expiresIn : process.env.REFRESH_TOKEN_EXPIRY,
-        }
-        
-    )
-}
 
 export const Student = mongoose.model("Student", studentSchema);

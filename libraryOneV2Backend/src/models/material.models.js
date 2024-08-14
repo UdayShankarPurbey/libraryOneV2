@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import { materialType } from "../utils/typeEnum.js";
+import { stringify } from "postcss";
 
-const journal_Article_OtherSchema = new mongoose.Schema(
+const materialSchema = new mongoose.Schema(
     {
-      name : {
+      title : {
         type : String,
         required : true,
       },
@@ -11,10 +12,10 @@ const journal_Article_OtherSchema = new mongoose.Schema(
         type : String,
       },
       publicationYear : {
-        type : Number,
+        type : String,
       },
       editionYear : {
-        type : Number,
+        type : String,
       },
       quantity : {
         type : Number,
@@ -25,8 +26,17 @@ const journal_Article_OtherSchema = new mongoose.Schema(
       },
       type : {
         type : String,
-        required : true,
         enum: materialType,
+      },
+      price : {
+        type : Number,
+        required : true,
+      },
+      description : {
+        type : String,
+      },
+      coverImage : {
+        type : String,
       }
     },
     {
@@ -35,4 +45,4 @@ const journal_Article_OtherSchema = new mongoose.Schema(
 )
 
 
-export const Journal_Article_Other = mongoose.model("Journal_Article_Other", journal_Article_OtherSchema);
+export const Material = mongoose.model("Material", materialSchema);
