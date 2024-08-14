@@ -81,6 +81,20 @@ const studentSchema = new mongoose.Schema(
             },
         }
        ],
+       allocatedMaterial : [
+        {
+            bookId : {
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'Journal_Article_Other',
+            },
+            borrowDate : {
+                type : Date,
+            },
+            returnDate : {
+                type : Date,
+            },
+        }
+       ],
        refreshToken : {
         type : String,
        }

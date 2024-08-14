@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { managementType } from "../utils/typeEnum.js";
+import jwt  from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const managementSchema = new mongoose.Schema(
   {
@@ -52,16 +55,48 @@ const managementSchema = new mongoose.Schema(
     role : {
       type : String,
       required : true,
-      enum : ['administrator' , 'librarian' , 'teacher'],
+      enum : managementType,
     },
-    refreshToken : {
-     type : String,
-    }
+    allocatedBooks : [
+      {
+          bookId : {
+              type : mongoose.Schema.Types.ObjectId,
+              ref : 'Book',
+          },
+          borrowDate : {
+              type : Date,
+          },
+          returnDate : {
+              type : Date,
+          },
+      }
+     ],
+     allocatedMaterial : [
+      {
+          bookId : {
+              type : mongoose.Schema.Types.ObjectId,
+              ref : 'Journal_Article_Other',
+          },
+          borrowDate : {
+              type : Date,
+          },
+          returnDate : {
+              type : Date,
+          },
+      }
+     ],
   },
   {
     timestamps: true,
   }
 )
+
+// Static method to generate regNo
+managementSchema.statics.generateRegNo = async function () {
+  const count = await this.countDocuments();
+  // Generate regNo based on the count. Adjust the format as needed.
+  return `GIET${count + 1}`; // Example format: "REG1", "REG2", etc.
+};
 
 managementSchema.pre('save',async function (next) {
   if(! this.isModified('password')){
@@ -80,26 +115,12 @@ managementSchema.methods.generateAccessToken = function () {
       {
           _id : this._id,
       },
-      process.env.ACCESS_TOKEN_SECRET,
+      process.env.ADMIN_ACCESS_TOKEN_SECRET,
       {
-          expiresIn : process.env.ACCESS_TOKEN_EXPIRY,
+          expiresIn : process.env.ADMIN_ACCESS_TOKEN_EXPIRY,
       }
       
   )
 }
-
-managementSchema.methods.generateRefreshToken =  function () {
-  return  jwt.sign(
-      {
-          _id : this._id,
-      },
-      process.env.REFRESH_TOKEN_SECRET,
-      {
-          expiresIn : process.env.REFRESH_TOKEN_EXPIRY,
-      }
-      
-  )
-}
-
 
 export const Management = mongoose.model("Management", managementSchema);

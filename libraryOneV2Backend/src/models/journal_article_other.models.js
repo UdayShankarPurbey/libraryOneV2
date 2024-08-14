@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { materialType } from "../utils/typeEnum.js";
 
 const journal_Article_OtherSchema = new mongoose.Schema(
     {
@@ -25,7 +26,7 @@ const journal_Article_OtherSchema = new mongoose.Schema(
       type : {
         type : String,
         required : true,
-        enum: ['Article', 'Booklet', 'Conference Paper', 'Dissertation', 'Editorial', 'Magazine Article', 'Newspaper Article', 'Research Paper', 'Report', 'Thesis', 'Unpublished Work' , 'cd' , 'other']
+        enum: materialType,
       }
     },
     {
