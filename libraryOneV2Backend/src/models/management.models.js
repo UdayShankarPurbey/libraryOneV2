@@ -73,7 +73,7 @@ const managementSchema = new mongoose.Schema(
      ],
      allocatedMaterial : [
       {
-          bookId : {
+        materialId : {
               type : mongoose.Schema.Types.ObjectId,
               ref : 'Journal_Article_Other',
           },

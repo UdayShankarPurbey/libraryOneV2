@@ -78,15 +78,17 @@ const studentSchema = new mongoose.Schema(
             },
             borrowDate : {
                 type : Date,
+                default : new Date(Date.now())
             },
             returnDate : {
                 type : Date,
+                required : true ,
             },
         }
        ],
        allocatedMaterial : [
         {
-            bookId : {
+            materialId : {
                 type : mongoose.Schema.Types.ObjectId,
                 ref : 'Journal_Article_Other',
             },

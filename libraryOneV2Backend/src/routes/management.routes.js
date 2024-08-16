@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addAdmin, addInManagement, deleteAdmin, deleteManagement, getAdmin, getManagement, loginAdmin, loginLibrarian, logoutAdmin, logoutLibrarian, updateAdmin, updateManagement, updateUserRole } from "../controllers/management.controllers.js";
+import { addAdmin, addInManagement, allocateBooksMangement, allocateMaterialManagement, deleteAdmin, deleteManagement, getAdmin, getManagement, loginAdmin, loginLibrarian, logoutAdmin, logoutLibrarian,  returnBooksManagement, returnMaterialManagement, updateAdmin, updateManagement, updateUserRole } from "../controllers/management.controllers.js";
 import { verifyAdminJWT, verifyLibrarianJWT } from "../middlewares/adminAuth.middlewares.js";
 
 const router = Router()
@@ -22,5 +22,13 @@ router.route("/deleteManagement/:userId").delete(verifyAdminJWT,deleteManagement
 // For Librarian Only
 router.route("/loginLibrarian").post(loginLibrarian)
 router.route("/logoutLibrarian").get(verifyLibrarianJWT,logoutLibrarian)
+
+// Allocate Books and Material - For Student  -- Only Accessed By Librarian
+router.use(verifyLibrarianJWT)
+router.route("/allocateBook/:employeeId/:bookId").get(allocateBooksMangement)
+router.route("/returnBook/:employeeId/:bookId").get(returnBooksManagement)
+router.route("/allocateMaterial/:employeeId/:materialId").get(allocateMaterialManagement);
+router.route("/returnMaterial/:employeeId/:materialId").get(returnMaterialManagement)
+
 
 export default router

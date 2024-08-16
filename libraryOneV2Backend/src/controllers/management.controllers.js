@@ -2,7 +2,10 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Management } from "../models/management.models.js";
-import { managementType } from "../utils/typeEnum.js";
+import { managementBookAllocationCount, managementType } from "../utils/typeEnum.js";
+import { Student } from "../models/student.models.js";
+import { Book } from "../models/book.models.js";
+import { Material } from "../models/material.models.js";
 
 const  options = {
   httpOnly : true,
@@ -462,6 +465,282 @@ const logoutLibrarian = asyncHandler(async (req, res) => {
   )
 });
 
+// For Management
+const allocateBooksMangement = asyncHandler(async (req, res) => {
+  const { employeeId , bookId } = req.params;
+
+  if (!employeeId || !bookId) {
+    throw new ApiError(400, "Please provide employeeId and bookId");
+  }
+
+  const employee = await Management.findById(employeeId);
+
+  if (!employee) {
+    throw new ApiError(404, "Employee not found");
+  }
+
+  const isValidForGettingBooksAndMaterial = employee?.allocatedBooks?.length + employee?.allocatedMaterial?.length
+ 
+  const bookToget = Object.values(managementBookAllocationCount.find(a => Object.keys(a) == employee?.role));
+
+  if (isValidForGettingBooksAndMaterial >= bookToget) {
+    throw new ApiError(400, "Student has already allocated maximum allowed books and materials")
+  }
+
+  if(employee?.allocatedBooks?.find(b => b.bookId == bookId)) {
+    throw new ApiError(400, "Employee has already allocated this book");
+  }
+
+  const isBookAvailable = await Book.findById(bookId)
+
+  if (!isBookAvailable) {
+    throw new ApiError(404, "Book not found");
+  }
+
+  if(isBookAvailable?.quantity < 1) {
+    throw new ApiError(400, "Book is not available for allocation");
+  } 
+
+  const employeeBook = await Management.findByIdAndUpdate(
+    employeeId,
+    { 
+      $push: { 
+        allocatedBooks: {
+          bookId: isBookAvailable?._id,
+          borrowDate : new Date(Date.now()),
+          returnDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000) // 15 days 
+        }
+      } 
+    },
+    { new: true }
+  ).select("-password")
+
+  if(!employeeBook) {
+    throw new ApiError(500, "Something went wrong, unable to allocate book! Try again later.");
+  }
+
+  const book = await Book.findByIdAndUpdate(
+    bookId,
+    { $inc: { quantity: -1 } },
+    { new: true }
+  );
+
+  if(!book) {
+    const employeeBook = await Management.findByIdAndUpdate(
+      employeeId,
+      { 
+        $pull: { 
+          allocatedBooks: { bookId: bookId } // Remove book by its ID
+        }
+      },
+      { new: true } // Return the updated document
+    ).select("-password")
+
+    throw new ApiError(500, "Something went wrong, unable to update book quantity! Try again later.");
+  }
+
+  return res
+   .status(200)
+   .json(
+      new ApiResponse(200, {
+        employee: employeeBook,
+        book: book,
+      }, "Book Allocated Successfully")
+    );
+});
+
+const returnBooksManagement = asyncHandler(async (req, res) => {
+  const { employeeId , bookId } = req.params;
+  if (!employeeId ||!bookId) {
+    throw new ApiError(400, "Please provide EmployeeId and bookId");
+  }
+
+  const employee = await Management.findById(employeeId);
+  if (!employee) {
+    throw new ApiError(404, "Employee not found");
+  }
+  
+  const employeeBook = employee.allocatedBooks.find(b => b.bookId.toString() === bookId);
+  if (!employeeBook) {
+    throw new ApiError(404, "Book not found for this student");
+  }
+  
+  const book = await Book.findByIdAndUpdate(
+    bookId,
+    { $inc: { quantity: 1 } },
+    { new: true }
+  );
+  if(!book) {
+    throw new ApiError(500, "Something went wrong, unable to update book quantity! Try again later.");
+  }
+
+  const updateMangement = await Management.findByIdAndUpdate(
+    employeeId,
+    {
+      $pull: { allocatedBooks: { bookId: bookId } } // Remove book by its ID
+    },
+    { new: true } // Return the updated document
+  ).select("-password");
+
+  if(!updateMangement) {
+    const book = await Book.findByIdAndUpdate(
+      bookId,
+      { $inc: { quantity: -1 } },
+      { new: true }
+    );
+    throw new ApiError(500, "Something went wrong, unable to return book! Try again later.");
+  }
+  
+  return res
+   .status(200)
+   .json(
+      new ApiResponse(200, {
+        employee: updateMangement,
+        book: book,
+      }, "Book Returned Successfully"
+    ));
+});
+
+const allocateMaterialManagement = asyncHandler(async (req, res) => {
+  const { employeeId , materialId } = req.params;
+
+  if (!employeeId || !materialId) {
+    throw new ApiError(400, "Please provide EmployeeId and MaterialId");
+  }
+
+  const employee = await Management.findById(employeeId);
+
+  if (!employee) {
+    throw new ApiError(404, "Employee not found");
+  }
+
+  const isValidForGettingBooksAndMaterial = employee?.allocatedBooks?.length + employee?.allocatedMaterial?.length
+
+  const bookToget = Object.values(managementBookAllocationCount.find(a => Object.keys(a) == employee?.role));
+
+
+  if (isValidForGettingBooksAndMaterial >= bookToget) {
+    throw new ApiError(400, "Employee has already allocated maximum allowed books and materials")
+  }
+
+  if(employee?.allocatedMaterial?.find(b => b.materialId == materialId)) {
+    throw new ApiError(400, "Employee has already allocated this Material");
+  }
+
+  const isMaterialAvailable = await Material.findById(materialId)
+
+  if (!isMaterialAvailable) {
+    throw new ApiError(404, "Material not found");
+  }
+
+  if(isMaterialAvailable?.quantity < 1) {
+    throw new ApiError(400, "Material is not available for allocation");
+  } 
+
+  const employeeMaterial = await Management.findByIdAndUpdate(
+    employeeId,
+    { 
+      $push: { 
+        allocatedMaterial: {
+          materialId : isMaterialAvailable?._id,
+          borrowDate : new Date(Date.now()),
+          returnDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000) // 15 days 
+        }
+      } 
+    },
+    { new: true }
+  ).select("-password")
+
+  if(!employeeMaterial) {
+    throw new ApiError(500, "Something went wrong, unable to allocate Material! Try again later.");
+  }
+
+  const material = await Material.findByIdAndUpdate(
+    materialId,
+    { $inc: { quantity: -1 } },
+    { new: true }
+  );
+
+  if(!material) {
+    const employeeMaterial = await Management.findByIdAndUpdate(
+      materialId,
+      { 
+        $pull: { 
+          allocatedMaterial: { materialId: materialId } // Remove Material by its ID
+        }
+      },
+      { new: true } // Return the updated document
+    ).select("-password")
+
+    throw new ApiError(500, "Something went wrong, unable to update Material quantity! Try again later.");
+  }
+
+  return res
+   .status(200)
+   .json(
+      new ApiResponse(200, {
+        employee : employeeMaterial,
+        material : material,
+      }, "Material Allocated Successfully")
+    );
+
+
+});
+
+const returnMaterialManagement = asyncHandler(async (req, res) => {
+  const { employeeId , materialId } = req.params;
+  if (!employeeId ||!materialId) {
+    throw new ApiError(400, "Please provide employeeId and materialId");
+  }
+
+  const employee = await Management.findById(employeeId);
+  if (!employee) {
+    throw new ApiError(404, "Employee not found");
+  }
+  console.log(employee);
+
+  
+  const employeeMaterial = employee?.allocatedMaterial?.find(b => b?.materialId?.toString() === materialId);
+  if (!employeeMaterial) {
+    throw new ApiError(404, "Material not found for this Employee");
+  }
+  
+  const material = await Material.findByIdAndUpdate(
+    materialId,
+    { $inc: { quantity: 1 } },
+    { new: true }
+  );
+  if(!material) {
+    throw new ApiError(500, "Something went wrong, unable to update Material quantity! Try again later.");
+  }
+
+  const updateMangement = await Management.findByIdAndUpdate(
+    employeeId,
+    {
+      $pull: { allocatedMaterial: { materialId: materialId } } 
+    },
+    { new: true } // Return the updated document
+  ).select("-password");
+
+  if(!updateMangement) {
+    const material = await Material.findByIdAndUpdate(
+      materialId,
+      { $inc: { quantity: -1 } },
+      { new: true }
+    );
+    throw new ApiError(500, "Something went wrong, unable to return Material ! Try again later.");
+  }
+  
+  return res
+   .status(200)
+   .json(
+      new ApiResponse(200, {
+        employee: updateMangement,
+        material: material,
+      }, "Material Returned Successfully"
+    ));
+});
+
 export { 
   // For admin role only
   addAdmin,  
@@ -481,4 +760,11 @@ export {
   // For librarian role only
   loginLibrarian,
   logoutLibrarian,
+ 
+  // For Management - Book & Material Allocation
+  allocateBooksMangement,
+  returnBooksManagement,
+  allocateMaterialManagement,
+  returnMaterialManagement,
+
 };

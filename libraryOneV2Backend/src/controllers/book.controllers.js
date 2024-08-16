@@ -143,7 +143,6 @@ const getBookById = asyncHandler(async (req, res) => {
    .json(new ApiResponse(200, "Book fetched successfully", book));
 });
 
-
 export {
   addBooks,
   updateBooks,
