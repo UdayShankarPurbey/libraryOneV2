@@ -4,11 +4,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { guardGuard } from './services/guard/guard.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ViewPagesComponent } from './pages/view-pages/view-pages.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'general',
     pathMatch: 'full'
   },
   {
@@ -30,7 +31,10 @@ export const routes: Routes = [
       }
     ]
   },
-  
+  {
+    path : 'general',
+    component : ViewPagesComponent
+  },
   {
     path : '**',
     component : PageNotFoundComponent,
