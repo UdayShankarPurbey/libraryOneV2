@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addAdmin, addInManagement, allocateBooksMangement, allocateMaterialManagement, deleteAdmin, deleteManagement, getAdmin, getManagement, loginAdmin, loginLibrarian, logoutAdmin, logoutLibrarian,  returnBooksManagement, returnMaterialManagement, updateAdmin, updateManagement, updateUserRole } from "../controllers/management.controllers.js";
+import { addAdmin, addInManagement, allocateBooksMangement, allocateMaterialManagement, deleteAdmin, deleteManagement, getAdmin, getAllManagement, getManagement, loginAdmin, loginLibrarian, logoutAdmin, logoutLibrarian,  returnBooksManagement, returnMaterialManagement, updateAdmin, updateManagement, updateUserRole } from "../controllers/management.controllers.js";
 import { verifyAdminJWT, verifyLibrarianJWT } from "../middlewares/adminAuth.middlewares.js";
 
 const router = Router()
@@ -18,6 +18,7 @@ router.route("/updateUserAdmin/:userId").patch(verifyAdminJWT,updateUserRole)
 router.route("/updateMangement/:userId").patch(verifyAdminJWT,updateManagement);
 router.route("/getManagement/:userId").get(verifyAdminJWT,getManagement)
 router.route("/deleteManagement/:userId").delete(verifyAdminJWT,deleteManagement)
+router.route("/getAllManagement").get(verifyAdminJWT,getAllManagement)
 
 // For Librarian Only
 router.route("/loginLibrarian").post(loginLibrarian)
