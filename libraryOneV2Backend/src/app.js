@@ -22,6 +22,7 @@ import managementRouter from './routes/management.routes.js'
 import studentRouter from './routes/student.routes.js'
 import bookRouter from './routes/book.routes.js'
 import materialRouter from './routes/material.routes.js'
+import { ApiError } from './utils/ApiError.js';
 
 
 
@@ -30,5 +31,28 @@ app.use("/api/v1/management", managementRouter)
 app.use("/api/v1/student", studentRouter)
 app.use("/api/v1/book", bookRouter)
 app.use("/api/v1/material", materialRouter)
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    if (err instanceof ApiError) {
+        return res.status(err.statusCode || 500).json({
+            statusCode: err.statusCode,
+            message: err.message,
+            errors: err.errors,
+            data: null,
+            success: err.success
+        });
+    } else {
+        console.error(err); // Log unexpected errors
+        return res.status(500).json({
+            statusCode: 500,
+            message: 'An unexpected error occurred',
+            errors: [],
+            data: null,
+            success: false
+        });
+    }
+});
+
 
 export {app}
