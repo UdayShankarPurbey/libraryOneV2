@@ -410,6 +410,18 @@ const updateManagement = asyncHandler(async (req, res) => {
   )
 });
 
+
+const getAllManagement = asyncHandler(async (req, res) => {
+ 
+  const management  = await Management.find({});
+  
+  return res
+  .status(200)
+  .json(
+      new ApiResponse(200 , management , "Management Data Fetched Successfully")
+  )
+});
+
 const loginLibrarian = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -756,6 +768,7 @@ export {
   deleteManagement,
   updateManagement,
   updateUserRole,
+  getAllManagement,
 
   // For librarian role only
   loginLibrarian,
