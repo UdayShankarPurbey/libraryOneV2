@@ -1,1 +1,75 @@
-<p>management-list works!</p>
+<!-- {
+  "_id": "66bc602e05ee70114c1c3da6",
+  "name": "test",
+  "fatherName": "testData2",
+  "motherName": "testData3",
+  "imageUrl": "https://res.cloudinary.com/dgpbalqri/image/upload/v1712899843/Twityou/Images/pqobgla5cl3bkvcjxum6.avif",
+  "gender": "m",
+  "dateOfBirth": "2024-01-04T18:30:00.000Z",
+  "email": "test@test.com",
+  "phone": "7549655852",
+  "address": "f-128 , kjfksdj , fsl , jlfks , india",
+  "password": "$2b$10$.hONXz3z31enwablWzWyYejauedb4tmVrVLqoCgzzz3.6bGvMPeGy",
+  "regNo": "GIET20",
+  "role": "admin",
+  "allocatedBooks": [],
+  "allocatedMaterial": [],
+  "createdAt": "2024-08-14T07:43:42.523Z",
+  "updatedAt": "2024-08-14T07:43:42.523Z",
+  "__v": 0
+} -->
+
+<nz-table #basicTable [nzData]="managementList">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>fatherName</th>
+      <th>motherName</th>
+      <th>imageUrl</th>
+      <th>gender</th>
+      <th>dateOfBirth</th>
+      <th>email</th>
+      <th>phone</th>
+      <th>address</th>
+      <th>regNo</th>
+      <th>role</th>
+      <th>allocatedBooks</th>
+      <th>allocatedMaterial</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data.name}}</td>
+      <td>{{data.fatherName}}</td>
+      <td>{{data.motherName}}</td>
+      <td>
+        <img [src]="data.imageUrl" [alt]="data?.name + ' Image Not Found'" width="50" height="50">
+      </td>
+      <td>{{data.gender}}</td>
+      <td>{{data.dateOfBirth}}</td>
+      <td>{{data.email}}</td>
+      <td>{{data.phone}}</td>
+      <td>{{data.address}}</td>
+      <td>{{data.regNo}}</td>
+      <td>{{data.role}}</td>
+      <td>
+        <ul *ngFor="let book of data.allocatedBooks" >
+          <li>{{book.bookId}}</li>
+          <li>{{book.borrowDate}}</li>
+          <li>{{book.returnDate}}</li>
+          <nz-divider nzType="horizontal"></nz-divider>
+
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li *ngFor="let material of data.allocatedMaterial" >{{material}}</li>
+        </ul>
+      </td>
+      <td>
+        <button>Delete</button>
+      </td>      
+    </tr>
+  </tbody>
+</nz-table>

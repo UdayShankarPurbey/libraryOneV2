@@ -7,5 +7,9 @@ export const endPoints = {
   updateAdmin : "management/updateAdmin",
   getAdmins : "management/getAdmins",
   deleteAdmin : "management/deleteAdmin",
-    
+  
+
+  //Management
+  getAllManagement : "management/getAllManagement",
+
 }
