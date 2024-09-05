@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
+import { AdminlayoutComponent } from '../../component/adminlayout/adminlayout.component';
+import { ManagementListComponent } from './management-list/management-list.component';
 
 const routes: Routes = [
   {
@@ -11,6 +13,16 @@ const routes: Routes = [
   {
     path : 'login',
     component : AdminloginComponent
+  },
+  {
+    path : 'layout',
+    component : AdminlayoutComponent,
+    children : [
+      {
+        path : '',
+        component : ManagementListComponent
+      }
+    ]
   }
 ];
 

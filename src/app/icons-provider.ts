@@ -17,6 +17,9 @@ import {
   YoutubeOutline, 
   LinkedinOutline,
   InstagramOutline,
+  UserOutline,
+  TeamOutline,
+  SettingFill,
 
 } from '@ant-design/icons-angular/icons';
 
@@ -40,6 +43,9 @@ const icons = [
   YoutubeOutline, 
   LinkedinOutline, 
   InstagramOutline,
+  UserOutline,
+  TeamOutline,
+  SettingFill,
 
   
   

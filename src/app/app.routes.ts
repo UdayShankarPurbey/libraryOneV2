@@ -22,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path : 'home',
-    canActivate: [guardGuard],
+    // canActivate: [guardGuard],
     component : LayoutComponent,
     children : [
       {
