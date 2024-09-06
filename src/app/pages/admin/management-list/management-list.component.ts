@@ -24,7 +24,6 @@ export class ManagementListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('fjdk');
     this.management.getManagementList().subscribe(
       (res : any) => {
         this.managementList = res?.data;

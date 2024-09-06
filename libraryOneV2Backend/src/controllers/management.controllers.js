@@ -198,6 +198,12 @@ const getAdmin = asyncHandler(async (req, res) => {
 })
 
 const deleteAdmin = asyncHandler(async (req, res) => {
+  const isAnotherAdmin = await Management.find({ role: 'admin' });
+
+  // TESTIT: CHECK IT IN POSTMANAGE
+  if(isAnotherAdmin.length > 1) {
+    throw new ApiError(400, "Atleast one admin is Required");
+  }
   const admin = await Management.findByIdAndDelete(req?.admin?._id);
   
   if(!admin) {

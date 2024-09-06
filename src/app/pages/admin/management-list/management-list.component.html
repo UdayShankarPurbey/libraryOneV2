@@ -1,25 +1,4 @@
-<!-- {
-  "_id": "66bc602e05ee70114c1c3da6",
-  "name": "test",
-  "fatherName": "testData2",
-  "motherName": "testData3",
-  "imageUrl": "https://res.cloudinary.com/dgpbalqri/image/upload/v1712899843/Twityou/Images/pqobgla5cl3bkvcjxum6.avif",
-  "gender": "m",
-  "dateOfBirth": "2024-01-04T18:30:00.000Z",
-  "email": "test@test.com",
-  "phone": "7549655852",
-  "address": "f-128 , kjfksdj , fsl , jlfks , india",
-  "password": "$2b$10$.hONXz3z31enwablWzWyYejauedb4tmVrVLqoCgzzz3.6bGvMPeGy",
-  "regNo": "GIET20",
-  "role": "admin",
-  "allocatedBooks": [],
-  "allocatedMaterial": [],
-  "createdAt": "2024-08-14T07:43:42.523Z",
-  "updatedAt": "2024-08-14T07:43:42.523Z",
-  "__v": 0
-} -->
-
-<nz-table #basicTable [nzData]="managementList">
+<nz-table #basicTable [nzData]="managementList" *ngIf="managementList?.length > 0">
   <thead>
     <tr>
       <th>Name</th>

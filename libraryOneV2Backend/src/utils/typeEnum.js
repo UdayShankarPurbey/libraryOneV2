@@ -1,8 +1,8 @@
-export const materialType = ['Article', 'Booklet', 'Conference Paper', 'Dissertation', 'Editorial', 'Magazine', 'Newspaper', 'Research Paper', 'Report', 'Thesis', 'Unpublished Work' , 'cd' , 'Novel' , 'ReasearchPaper', 'other'];
+const materialType = ['Article', 'Booklet', 'Conference Paper', 'Dissertation', 'Editorial', 'Magazine', 'Newspaper', 'Research Paper', 'Report', 'Thesis', 'Unpublished Work' , 'cd' , 'Novel' , 'ReasearchPaper', 'other'];
 
-export const managementType = ['administrator' , 'librarian' , 'teacher' ,'admin','other'];
+const managementType = ['administrator' , 'librarian' , 'teacher' ,'admin','other'];
 
-export const managementBookAllocationCount = [
+const managementBookAllocationCount = [
  { 'administrator' : 15} , 
   {'librarian' : 7} , 
   {'teacher' : 10} ,
@@ -11,4 +11,15 @@ export const managementBookAllocationCount = [
 ];
 
 
-export const departmentTagType = ["bsh" , "cse" , "eace"]
+const departmentTagType = ["bsh" , "cse" , "eace"];
+
+const otpTypes = ["invalid", "used", "expired"];
+
+export {
+  materialType,
+  managementType,
+  managementBookAllocationCount,
+  departmentTagType,
+  otpTypes,
+  
+};
