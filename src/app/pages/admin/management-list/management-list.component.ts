@@ -3,6 +3,8 @@ import { ManagementService } from '../../../services/management/management.servi
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { CommonModule } from '@angular/common';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+
 
 @Component({
   selector: 'app-management-list',
@@ -11,6 +13,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     CommonModule,
     NzTableModule,
     NzDividerModule,
+    NzButtonModule,
   ],
   templateUrl: './management-list.component.html',
   styleUrl: './management-list.component.css'
@@ -20,8 +23,10 @@ export class ManagementListComponent implements OnInit {
   managementList: any = [];
 
   constructor(
-    private management : ManagementService
-  ) { }
+    private management : ManagementService,
+  ) { 
+    
+  }
 
   ngOnInit(): void {
     this.management.getManagementList().subscribe(
@@ -32,6 +37,10 @@ export class ManagementListComponent implements OnInit {
         console.error(error);
       }
     )
+  }
+
+  addManagement() {
+
   }
 
 }

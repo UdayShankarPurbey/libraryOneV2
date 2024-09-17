@@ -1,3 +1,8 @@
+<button nz-button nzType="primary" (click)="addManagement()">+ Add Management</button>
+
+<br/>
+<br/>
+
 <nz-table #basicTable [nzData]="managementList" *ngIf="managementList?.length > 0">
   <thead>
     <tr>

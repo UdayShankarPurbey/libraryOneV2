@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { AdminlayoutComponent } from '../../component/adminlayout/adminlayout.component';
 import { ManagementListComponent } from './management-list/management-list.component';
+import { ManagementModalComponent } from './management-modal/management-modal.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path : '',
         component : ManagementListComponent
+      },
+      {
+        path : 'add',
+        component : ManagementModalComponent
       }
     ]
   }

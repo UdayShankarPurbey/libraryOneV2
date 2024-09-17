@@ -1,0 +1,35 @@
+<div >
+  <form
+  nz-form
+  [formGroup]="validateForm"
+>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Heading</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzErrorTip="Please input Heading!">
+      <input type="password" nz-input formControlName="password" placeholder="Password" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]=" 4">Banner</nz-form-label>
+    <input type="file" (change)="handleChange($event)" multiple  >
+  </nz-form-item>
+  <nz-form-item >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="12">Banner Image</nz-form-label>
+      <img [src]="''" style="width: 300px; height: 100px;" alt="Image Not Found">
+    </nz-form-item>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-label [nzSpan]=" 4">Content</nz-form-label>
+      <nz-form-control [nzSpan]="14" nzErrorTip="Please input Content!">
+      <textarea rows="2" formControlName="content" placeholder="input Content" nz-input></textarea>
+      </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-label [nzSpan]=" 4">Redirect Url</nz-form-label>
+      <nz-form-control [nzSpan]="14" nzErrorTip="Please input Content!">
+      <textarea rows="2" formControlName="redirectUrl" placeholder="input Redirect Url " nz-input></textarea>
+      </nz-form-control>
+  </nz-form-item>
+</form>
+</div>
